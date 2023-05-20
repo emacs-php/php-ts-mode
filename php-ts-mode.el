@@ -199,6 +199,19 @@ the available version of Tree-sitter for PHP."
    `([,@php-ts-mode--keywords] @font-lock-keyword-face))
   "Tree-sitter font-lock settings for `php-ts-mode'.")
 
+  (defun php-ts-mode--defun-name (node)
+  "Return the defun name of NODE.
+Return nil if there is no name or if NODE is not a defun node."
+  (pcase (treesit-node-type node)
+    ((or "class_declaration"
+         "enum_declaration"
+         "interface_declaration"
+         "method_declaration"
+         "namespace_definition")
+     (treesit-node-text
+      (treesit-node-child-by-field-name node "name")
+      t))))
+
 ;;;###autoload
 (define-derived-mode php-ts-mode prog-mode "PHP"
   "Major mode for editing PHP files, powered by tree-sitter."
@@ -243,6 +256,8 @@ the available version of Tree-sitter for PHP."
   (setq-local electric-indent-chars
               (append "{}():;," electric-indent-chars))
 
+  (setq-local treesit-defun-name-function #'php-ts-mode--defun-name)
+
   ;; Font-lock.
   (setq-local treesit-font-lock-settings php-ts-mode--font-lock-settings)
   (setq-local treesit-font-lock-feature-list
@@ -250,6 +265,14 @@ the available version of Tree-sitter for PHP."
                 (constant keyword string type variables)
                 (annotation expression literal)
                 (bracket delimiter operator)))
+
+  ;; Imenu.
+  (setq-local treesit-simple-imenu-settings
+              '(("Namespace" "\\`namespace_definition\\'" nil nil)
+                ("Enum" "\\`enum_declaration\\'" nil nil)
+                ("Class" "\\`class_declaration\\'" nil nil)
+                ("Interface" "\\`interface_declaration\\'" nil nil)
+                ("Method" "\\`method_declaration\\'" nil nil)))
 
   (treesit-major-mode-setup))
 
