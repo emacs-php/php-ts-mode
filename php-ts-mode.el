@@ -211,7 +211,8 @@ Return nil if there is no name or if NODE is not a defun node."
          "enum_declaration"
          "interface_declaration"
          "method_declaration"
-         "namespace_definition")
+         "namespace_definition"
+         "trait_declaration")
      (treesit-node-text
       (treesit-node-child-by-field-name node "name")
       t))))
@@ -276,7 +277,8 @@ Return nil if there is no name or if NODE is not a defun node."
                 ("Enum" "\\`enum_declaration\\'" nil nil)
                 ("Class" "\\`class_declaration\\'" nil nil)
                 ("Interface" "\\`interface_declaration\\'" nil nil)
-                ("Method" "\\`method_declaration\\'" nil nil)))
+                ("Method" "\\`method_declaration\\'" nil nil)
+                ("Trait" "\\`trait_declaration\\'" nil nil)))
 
   (treesit-major-mode-setup))
 
