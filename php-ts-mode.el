@@ -152,7 +152,7 @@ the available version of Tree-sitter for PHP."
    `((relative_scope) @font-lock-builtin-face
 
      ((name) @font-lock-constant-face
-      (:match ,(rx-to-string '(: bos (? "_") (in "A-Z") (or (in "A-Z") digit "_") eos))
+      (:match ,(rx bos (? "_") (in "A-Z") (in "0-9A-Z_") eos)
               @font-lock-constant-face))
      ((name) @font-lock-builtin-face
       (:match ,(rx-to-string `(: bos (or ,@php-ts-mode--magical-constants) eos))
@@ -170,7 +170,7 @@ the available version of Tree-sitter for PHP."
    :language 'php
    :feature 'comment
    `(((comment) @font-lock-doc-face
-      (:match ,(rx-to-string '(: bos "/**"))
+      (:match ,(rx bos "/**")
               @font-lock-doc-face))
      (comment) @font-lock-comment-face)
 
