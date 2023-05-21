@@ -277,7 +277,6 @@ Return nil if there is no name or if NODE is not a defun node."
   (treesit-major-mode-setup))
 
 (when (treesit-ready-p 'php)
-  (add-to-list 'auto-mode-alist '("/\\.php_cs\\(?:\\.dist\\)?\\'" . php-ts-mode))
   (add-to-list 'auto-mode-alist '("\\.\\(?:php\\.inc\\|stub\\)\\'" . php-ts-mode)))
 
 (provide 'php-ts-mode)
