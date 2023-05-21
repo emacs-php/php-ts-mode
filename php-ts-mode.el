@@ -74,7 +74,7 @@
   '("abstract" "as" "break" "case" "catch" "class" "const"
     "continue" "declare" "default" "do" "echo" "else"
     "elseif" "enddeclare" "endforeach" "endif" "endswitch"
-    "endwhile" "extends" "final" "finally" "foreach"
+    "endwhile" "enum" "extends" "final" "finally" "foreach"
     "function" "global" "if" "implements" "include_once"
     "include" "insteadof" "interface" "namespace" "new"
     "private" "protected" "public" "require_once" "require"
@@ -118,14 +118,31 @@ the available version of Tree-sitter for PHP."
 
    :language 'php
    :feature 'type
-   `((primitive_type) @font-lock-type-face
-     (cast_type) @font-lock-type-face
-     (named_type (name) @type) @font-lock-type-face
-     (named_type (qualified_name) @type) @font-lock-type-face
-     (boolean) @font-lock-type-face
-     (null) @php-constant
-     (integer) @font-lock-number-face
-     (float) @font-lock-number-face)
+   `([(primitive_type)
+      (cast_type)
+      (named_type (name) @type)
+      (named_type (qualified_name) @type)
+      (namespace_use_clause)
+      (namespace_name (name))
+      (class_interface_clause (name))
+      (const_element (name))
+      (boolean)] @font-lock-type-face
+      (null) @php-constant
+      [(integer)
+       (float)] @font-lock-number-face)
+
+   :language 'php
+   :feature 'definition
+   `((class_declaration
+      name: (name) @font-lock-type-face)
+     (interface_declaration
+      name: (name) @font-lock-type-face)
+     (enum_declaration
+      name: (name) @font-lock-type-face)
+     (trait_declaration
+      name: (name) @font-lock-type-face)
+     (enum_case
+      name: (name) @font-lock-type-face))
 
    :language 'php
    :feature 'function
@@ -267,7 +284,7 @@ Return nil if there is no name or if NODE is not a defun node."
   (setq-local treesit-font-lock-feature-list
               '((comment definition preprocessor)
                 (constant keyword string type variables)
-                (annotation expression literal)
+                (annotation expression literal function)
                 (bracket delimiter operator)))
 
   ;; Imenu.
