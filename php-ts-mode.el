@@ -87,7 +87,7 @@
      "+" "++" "+=" "," "-" "-" "--" "-=" "->" "."
      ".=" "/" "/=" ":" "::" "<" "<<" "<<=" "<=" "<=>"
      "<>" "=" "==" "===" "=>" ">" ">=" ">>" ">>=" "?"
-     "?:" "??" "??=" "?->" "@" "\\" "^" "^=" "|" "|=" "||"))
+     "??" "??=" "?->" "@" "\\" "^" "^=" "|" "|=" "||"))
   "PHP operators for tree-sitter font-locking.")
 
 (defconst php-ts-mode--magical-constants
@@ -189,6 +189,10 @@ the available version of Tree-sitter for PHP."
    :feature 'interpolation
    `((interpolation "${" @font-lock-misc-punctuation-face)
      (interpolation "}" @font-lock-misc-punctuation-face))
+
+   :language 'php
+   :feature 'operator
+   `([,@php-ts-mode--operators] @font-lock-operator-face)
 
    :language 'php
    :feature 'string
