@@ -120,6 +120,7 @@ the available version of Tree-sitter for PHP."
    :feature 'type
    `([(primitive_type)
       (cast_type)
+      (bottom_type)
       (named_type (name) @type)
       (named_type (qualified_name) @type)
       (namespace_use_clause)
