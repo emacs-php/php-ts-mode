@@ -74,12 +74,12 @@
   '("abstract" "as" "break" "case" "catch" "class" "const"
     "continue" "declare" "default" "do" "echo" "else"
     "elseif" "enddeclare" "endforeach" "endif" "endswitch"
-    "endwhile" "enum" "extends" "final" "finally" "foreach"
-    "function" "global" "if" "implements" "include_once"
-    "include" "insteadof" "interface" "namespace" "new"
-    "private" "protected" "public" "require_once" "require"
+    "endwhile" "enum" "extends" "final" "finally" "for" "foreach"
+    "fn" "function" "global" "if" "implements" "include_once"
+    "include" "insteadof" "interface" "namespace" "never" "new"
+    "private" "protected" "public" "readonly" "require_once" "require"
     "return" "static" "switch" "throw" "trait" "try" "use"
-    "while")
+    "while" "yield" "yield from")
   "PHP keywords for tree-sitter font-locking.")
 
 (defvar php-ts-mode--operators
