@@ -83,11 +83,11 @@
   "PHP keywords for tree-sitter font-locking.")
 
 (defvar php-ts-mode--operators
-  '(("!=" "!==" "%" "%=" "&" "&&" "&=" "*" "**" "*="
+  '("!=" "!==" "%" "%=" "&" "&&" "&=" "*" "**" "*="
      "+" "++" "+=" "," "-" "-" "--" "-=" "->" "."
      ".=" "/" "/=" ":" "::" "<" "<<" "<<=" "<=" "<=>"
      "<>" "=" "==" "===" "=>" ">" ">=" ">>" ">>=" "?"
-     "??" "??=" "?->" "@" "\\" "^" "^=" "|" "|=" "||"))
+     "??" "??=" "?->" "@" "\\" "^" "^=" "|" "|=" "||")
   "PHP operators for tree-sitter font-locking.")
 
 (defconst php-ts-mode--magical-constants
@@ -203,21 +203,16 @@ the available version of Tree-sitter for PHP."
      @font-lock-string-face)
 
    :language 'php
-   :feature 'interpolation
-   `((interpolation "${" @font-lock-misc-punctuation-face)
-     (interpolation "}" @font-lock-misc-punctuation-face))
-
-   :language 'php
    :feature 'operator
    `([,@php-ts-mode--operators] @font-lock-operator-face)
 
    :language 'php
-   :feature 'string
-   `((string) @font-lock-string-face)
+   :feature 'keyword
+   `([,@php-ts-mode--keywords] @font-lock-keyword-face)
 
    :language 'php
-   :feature 'keyword
-   `([,@php-ts-mode--keywords] @font-lock-keyword-face))
+   :feature 'bracket
+   `((["(" ")" "[" "]" "{" "}"]) @font-lock-bracket-face))
   "Tree-sitter font-lock settings for `php-ts-mode'.")
 
   (defun php-ts-mode--defun-name (node)
@@ -283,9 +278,8 @@ Return nil if there is no name or if NODE is not a defun node."
   (setq-local treesit-font-lock-settings php-ts-mode--font-lock-settings)
   (setq-local treesit-font-lock-feature-list
               '((comment definition preprocessor)
-                (constant keyword string type variables)
-                (annotation expression literal function)
-                (bracket delimiter operator)))
+                (keyword string type variables)
+                (function bracket operator)))
 
   ;; Imenu.
   (setq-local treesit-simple-imenu-settings
