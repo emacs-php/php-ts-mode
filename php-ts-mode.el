@@ -76,10 +76,10 @@
     "elseif" "enddeclare" "endforeach" "endif" "endswitch"
     "endwhile" "enum" "extends" "final" "finally" "for" "foreach"
     "fn" "function" "global" "if" "implements" "include_once"
-    "include" "insteadof" "interface" "namespace" "never" "new"
+    "include" "insteadof" "interface" "namespace" "new"
     "private" "protected" "public" "readonly" "require_once" "require"
     "return" "static" "switch" "throw" "trait" "try" "use"
-    "while" "yield" "yield from")
+    "while" "yield")
   "PHP keywords for tree-sitter font-locking.")
 
 (defvar php-ts-mode--operators
@@ -208,7 +208,9 @@ the available version of Tree-sitter for PHP."
 
    :language 'php
    :feature 'keyword
-   `([,@php-ts-mode--keywords] @font-lock-keyword-face)
+   `([,@php-ts-mode--keywords] @font-lock-keyword-face
+     ;; TODO: Add "yield from"
+     )
 
    :language 'php
    :feature 'bracket
