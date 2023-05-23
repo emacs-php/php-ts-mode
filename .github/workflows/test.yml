@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  push:
+    paths-ignore:
+    - '**/*.md'
+    - 'etc/*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    strategy:
+      matrix:
+        emacs_version: ['release-snapshot']
+    steps:
+    - name: Install emacs
+      run: sudo snap install emacs --beta --classic
+    - name: Checkout repo
+      uses: actions/checkout@v3
+    - name: Check emacs version
+      run: emacs --version
+    - name: Emacs support
+      run: emacs --batch --eval '(message "Treesit available %s" (treesit-available-p))'
+    - name: Run tests
+      run: make test

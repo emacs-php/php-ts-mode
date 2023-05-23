@@ -1,0 +1,28 @@
+Code:
+  (lambda ()
+    (setq indent-tabs-mode nil)
+    (setq php-ts-mode-indent-offset 4)
+    (php-ts-mode)
+    (indent-region (point-min) (point-max)))
+
+Point-Char: |
+
+Name: Basic
+
+=-=
+class Basic {
+    public function basic(): void {
+        return;
+    }
+}
+=-=-=
+
+Name: Empty Line
+
+=-=
+class EmptyLine {
+    public function emptyLine(): void {
+        |
+    }
+}
+=-=-=
