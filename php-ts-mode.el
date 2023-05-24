@@ -210,8 +210,7 @@ the available version of Tree-sitter for PHP."
    :language 'php
    :feature 'keyword
    `([,@php-ts-mode--keywords] @font-lock-keyword-face
-     ;; TODO: Add "yield from"
-     )
+     (yield_expression "from" @font-lock-keyword-face))
 
    :language 'php
    :feature 'bracket
