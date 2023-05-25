@@ -181,9 +181,9 @@ the available version of Tree-sitter for PHP."
 
      ;; ((name) @font-lock-variable-name-face
      ;;  (#eq? @php-$this "this"))
-
-     (variable_name) @font-lock-variable-name-face
-     "$" @php-variable-sigil)
+     (member_access_expression name: (name) @php-property-name)
+     (variable_name (name) @font-lock-variable-name-face)
+     (variable_name "$" @php-variable-sigil))
 
    :language 'php
    :feature 'comment
