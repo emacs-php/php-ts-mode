@@ -205,7 +205,10 @@ the available version of Tree-sitter for PHP."
 
    :language 'php
    :feature 'operator
-   `([,@php-ts-mode--operators] @font-lock-operator-face)
+   `([,@php-ts-mode--operators] @font-lock-operator-face
+     (binary_expression operator: "xor" @font-lock-operator-face)
+     (binary_expression operator: "and" @font-lock-operator-face)
+     (binary_expression operator: "or" @font-lock-operator-face))
 
    :language 'php
    :feature 'keyword
