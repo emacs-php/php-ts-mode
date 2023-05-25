@@ -68,6 +68,7 @@
        ((node-is ")") parent-bol 0)
        ((node-is "]") parent-bol 0)
        ((node-is "->") parent-bol ,offset)
+       ((parent-is "program") column-0 0)
        ((parent-is "comment") parent-bol 1)
        ((parent-is "declaration_list") parent-bol ,offset)
        ((parent-is "function_definition") parent-bol ,offset)
