@@ -125,9 +125,9 @@ the available version of Tree-sitter for PHP."
       (named_type (qualified_name) @type)
       (namespace_use_clause)
       (namespace_name (name))
-      (class_interface_clause (name))
-      (const_element (name))
       (boolean)] @font-lock-type-face
+      (class_interface_clause (name) @font-lock-type-face)
+      (const_element (name) @font-lock-type-face)
       (null) @php-constant
       [(integer)
        (float)] @font-lock-number-face)
@@ -147,8 +147,8 @@ the available version of Tree-sitter for PHP."
 
    :language 'php
    :feature 'function
-   `((array_creation_expression "array") @font-lock-builtin-face
-     (list_literal "list") @font-lock-builtin-face
+   `((array_creation_expression "array" @font-lock-builtin-face)
+     (list_literal "list" @font-lock-builtin-face)
 
      (method_declaration
       name: (name) @font-lock-function-name-face)
@@ -181,9 +181,9 @@ the available version of Tree-sitter for PHP."
 
      ;; ((name) @font-lock-variable-name-face
      ;;  (#eq? @php-$this "this"))
-
-     (variable_name) @font-lock-variable-name-face
-     "$" @php-variable-sigil)
+     (member_access_expression name: (name) @php-property-name)
+     (variable_name (name) @font-lock-variable-name-face)
+     (variable_name "$" @php-variable-sigil))
 
    :language 'php
    :feature 'comment
