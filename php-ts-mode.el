@@ -142,12 +142,14 @@ the available version of Tree-sitter for PHP."
       (named_type (qualified_name) @type)
       (namespace_use_clause)
       (namespace_name (name))
-      (boolean)] @font-lock-type-face
-      (class_interface_clause (name) @font-lock-type-face)
-      (const_element (name) @font-lock-type-face)
-      (null) @php-constant
-      [(integer)
-       (float)] @font-lock-number-face)
+      (boolean)]
+     @font-lock-type-face
+     (class_interface_clause (name) @font-lock-type-face)
+     (const_element (name) @font-lock-type-face)
+     (null) @php-constant
+     [(integer)
+      (float)]
+     @font-lock-number-face)
 
    :language 'php
    :feature 'definition
@@ -166,26 +168,20 @@ the available version of Tree-sitter for PHP."
    :feature 'function
    `((array_creation_expression "array" @font-lock-builtin-face)
      (list_literal "list" @font-lock-builtin-face)
-
      (method_declaration
       name: (name) @font-lock-function-name-face)
-
      (function_call_expression
       function: [(qualified_name (name)) (name)] @font-lock-function-call-face)
-
      (scoped_call_expression
       name: (name) @font-lock-function-call-face)
-
      (member_call_expression
       name: (name) @font-lock-function-call-face)
-
      (function_definition
       name: (name) @font-lock-function-name-face))
 
    :language 'php
    :feature 'variables
    `((relative_scope) @font-lock-builtin-face
-
      ((name) @font-lock-constant-face
       (:match ,(rx bos (? "_") (in "A-Z") (in "0-9A-Z_") eos)
               @font-lock-constant-face))
@@ -216,8 +212,7 @@ the available version of Tree-sitter for PHP."
       (encapsed_string)
       (heredoc)
       (heredoc_body)
-      (nowdoc_body)
-      ]
+      (nowdoc_body)]
      @font-lock-string-face)
 
    :language 'php
