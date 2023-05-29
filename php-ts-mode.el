@@ -134,6 +134,11 @@ the available version of Tree-sitter for PHP."
      ("?>") @font-lock-preprocessor-face)
 
    :language 'php
+   :feature 'constant
+   `((const_declaration (const_element (name) @font-lock-type-face))
+     (null) @php-constant)
+
+   :language 'php
    :feature 'type
    `([(primitive_type)
       (cast_type)
@@ -145,8 +150,6 @@ the available version of Tree-sitter for PHP."
       (boolean)]
      @font-lock-type-face
      (class_interface_clause (name) @font-lock-type-face)
-     (const_element (name) @font-lock-type-face)
-     (null) @php-constant
      [(integer)
       (float)]
      @font-lock-number-face)
@@ -228,6 +231,10 @@ the available version of Tree-sitter for PHP."
      (yield_expression "from" @font-lock-keyword-face))
 
    :language 'php
+   :feature 'delimiter
+   '((["," ":" ";" "\\"]) @font-lock-delimiter-face)
+
+   :language 'php
    :feature 'bracket
    `((["(" ")" "[" "]" "{" "}"]) @font-lock-bracket-face))
   "Tree-sitter font-lock settings for `php-ts-mode'.")
@@ -295,8 +302,9 @@ Return nil if there is no name or if NODE is not a defun node."
   (setq-local treesit-font-lock-settings php-ts-mode--font-lock-settings)
   (setq-local treesit-font-lock-feature-list
               '((comment definition preprocessor)
-                (keyword string type variables)
-                (function bracket operator)))
+                (keyword string type)
+                (function constant)
+                (bracket delimiter operator variables)))
 
   ;; Imenu.
   (setq-local treesit-simple-imenu-settings
