@@ -1,0 +1,162 @@
+Code:
+  (lambda ()
+    (php-ts-mode)
+    (forward-sentence 1))
+
+Point-Char: |
+
+Name: forward-sentence moves over method invocation
+
+=-=
+class Basic
+{
+  public function basic(): void
+  {
+    |echo "some text: {$text}";
+  }
+}
+=-=
+class Basic
+{
+  public function basic(): void
+  {
+    echo "some text: {$text}";|
+  }
+}
+=-=-=
+
+Name: forward-sentence moves over if
+
+=-=
+class Basic
+{
+  public function basic(): void
+  {
+    |if ($x) {
+
+    }
+    echo "some text: {$text}";
+    return;
+  }
+}
+=-=
+class Basic
+{
+  public function basic(): void
+  {
+    if ($x) {
+
+    }|
+    echo "some text: {$text}";
+    return;
+  }
+}
+=-=-=
+
+Code:
+  (lambda ()
+    (php-ts-mode)
+    (forward-sentence 2))
+
+Name: forward-sentence moves over multiple statements
+
+=-=
+class Basic {
+  public function basic(): void {
+    |return;
+    return;
+  }
+}
+=-=
+class Basic {
+  public function basic(): void {
+    return;
+    return;|
+  }
+}
+=-=-=
+
+Code:
+  (lambda ()
+    (php-ts-mode)
+    (backward-sentence 1))
+
+Name: backward-sentence moves over one statement
+
+=-=
+class Basic {
+  public function basic(): void {
+    return;|
+  }
+}
+=-=
+class Basic {
+  public function basic(): void {
+    |return;
+  }
+}
+=-=-=
+
+Code:
+  (lambda ()
+    (php-ts-mode)
+    (beginning-of-defun))
+
+Name: beginning-of-defun moves to defun start
+
+=-=
+class Basic {
+  public function basic(): void {
+    return;|
+  }
+}
+=-=
+class Basic {
+|  public function basic(): void {
+    return;
+  }
+}
+=-=-=
+
+Code:
+  (lambda ()
+    (php-ts-mode)
+    (beginning-of-defun)
+    (beginning-of-defun))
+
+Name: beginning-of-defun moves to class
+
+=-=
+class Basic {
+  public function basic(): void {
+    return;|
+  }
+}
+=-=
+|class Basic {
+  public function basic(): void {
+    return;
+  }
+}
+=-=-=
+
+Code:
+  (lambda ()
+    (php-ts-mode)
+    (end-of-defun))
+
+Name: end-of-defun moves to defun end
+
+=-=
+class Basic {
+  public funtion basic(): void {
+    return;|
+  }
+}
+=-=
+class Basic {
+  public function basic(): void {
+    return;
+  }
+|}
+=-=-=
