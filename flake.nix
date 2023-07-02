@@ -8,12 +8,10 @@
     ];
   };
 
-  inputs.emacs-ci = {
-    url = "github:purcell/nix-emacs-ci";
-    flake = false;
-  };
+  inputs.emacs-ci.url = "github:purcell/nix-emacs-ci";
 
   outputs = {
+    nixpkgs,
     emacs-ci,
     flake-utils,
     ...
@@ -21,17 +19,7 @@
   in
     flake-utils.lib.eachDefaultSystem
     (system: let
-      pkgs =
-        import ((import (emacs-ci + "/nix/sources.nix") {
-            inherit system;
-          })
-          .nixpkgs)
-        {
-          inherit system;
-          overlays = [
-            (import (emacs-ci + "/overlay.nix"))
-          ];
-        };
+      pkgs = nixpkgs.legacyPackages.${system};
 
       emacsCIWith = emacs:
         (pkgs.emacs.pkgs.overrideScope'
@@ -49,7 +37,9 @@
           ];
         };
     in {
-      devShells.emacs-snapshot = makeEmacsShell pkgs.emacs-snapshot;
-      devShells.emacs-release-snapshot = makeEmacsShell pkgs.emacs-release-snapshot;
+      devShells.emacs-snapshot =
+        makeEmacsShell emacs-ci.packages.${system}.emacs-snapshot;
+      devShells.emacs-release-snapshot =
+        makeEmacsShell emacs-ci.packages.${system}.emacs-release-snapshot;
     });
 }
