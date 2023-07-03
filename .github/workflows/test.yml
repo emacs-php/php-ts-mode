@@ -12,20 +12,13 @@ jobs:
     timeout-minutes: 3
     strategy:
       matrix:
-        emacs_version: ['emacs-release-snapshot']
+        emacs_version: ['release-snapshot']
     steps:
-    - uses: cachix/install-nix-action@v21
-      with:
-        extra_nix_config: |
-          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-          accept-flake-config = true
     - name: Checkout repo
       uses: actions/checkout@v3
     - name: Check emacs version
-      run: nix develop .#${{ matrix.emacs_version }} -c emacs --version
-    - name: Emacs support
-      run: |
-        nix develop .#${{ matrix.emacs_version }} -c \
-        emacs --batch --eval '(message "Treesit available %s" (treesit-available-p))'
+      uses: purcell/setup-emacs@master
+      with:
+        version: ${{ matrix.emacs_version }}
     - name: Run tests
-      run: nix develop .#${{ matrix.emacs_version }} -c make test
+      run: make test
