@@ -7,7 +7,7 @@
 ;; Created: 01 Apr 2023
 ;; URL: https://github.com/emacs-php/php-ts-mode
 ;; Version: 0.0.1
-;; Package-Requires: ((emacs "29.0"))
+;; Package-Requires: ((emacs "29.1"))
 ;; License: GPL-3.0-or-later
 ;; Keywords: languages, php, tree-sitter
 
