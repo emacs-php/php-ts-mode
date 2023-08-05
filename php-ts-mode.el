@@ -114,17 +114,6 @@
 These are different from \"constants\" in strict terms.
 see https://www.php.net/manual/language.constants.predefined.php")
 
-
-(defun php-ts-mode--string-highlight-helper ()
-  "Return, for strings, a query based on what is supported by
-the available version of Tree-sitter for PHP."
-  (condition-case nil
-      (progn (treesit-query-capture 'php '((text_block) @font-lock-string-face))
-	     `((string_literal) @font-lock-string-face
-	       (text_block) @font-lock-string-face))
-    (error
-     `((string_literal) @font-lock-string-face))))
-
 (defvar php-ts-mode--font-lock-settings
   (treesit-font-lock-rules
 
