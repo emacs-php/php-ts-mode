@@ -192,6 +192,18 @@
         "url": "https://ftp.gnu.org/gnu/emacs/emacs-28.2.tar.gz"
       }
     },
+    "emacs-29-1": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-C7920QvXQvrqUNAScIb++H1+3CC54ppPby+/hh6+yo0=",
+        "type": "tarball",
+        "url": "https://ftp.gnu.org/gnu/emacs/emacs-29.1.tar.gz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://ftp.gnu.org/gnu/emacs/emacs-29.1.tar.gz"
+      }
+    },
     "emacs-ci": {
       "inputs": {
         "emacs-23-4": "emacs-23-4",
@@ -210,6 +222,7 @@
         "emacs-27-2": "emacs-27-2",
         "emacs-28-1": "emacs-28-1",
         "emacs-28-2": "emacs-28-2",
+        "emacs-29-1": "emacs-29-1",
         "emacs-release-snapshot": "emacs-release-snapshot",
         "emacs-snapshot": "emacs-snapshot",
         "flake-compat": "flake-compat",
@@ -217,11 +230,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1690209568,
-        "narHash": "sha256-g3c6WbsS2wWECyM8CLrQF/ZzUpIuFQXcKpynTZJ42AY=",
+        "lastModified": 1690720676,
+        "narHash": "sha256-i1GjyKbMllsaKza6/6SnDb2Pht+Psj1TRTXIARB3tY0=",
         "owner": "purcell",
         "repo": "nix-emacs-ci",
-        "rev": "43872b67462023262ed044ef73aa3bab038da710",
+        "rev": "cfda51e1242a570bf1828be7c21617efb827c16e",
         "type": "github"
       },
       "original": {
@@ -330,11 +343,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1690083312,
-        "narHash": "sha256-I3egwgNXavad1eIjWu1kYyi0u73di/sMmlnQIuzQASk=",
+        "lastModified": 1690860117,
+        "narHash": "sha256-srkCfjMlg777HxDVMfhkIFgRhhtuZjIOIyR2ejLYK+Y=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "af8cd5ded7735ca1df1a1174864daab75feeb64a",
+        "rev": "96d403ee2479f2070050353b94808209f1352edb",
         "type": "github"
       },
       "original": {
