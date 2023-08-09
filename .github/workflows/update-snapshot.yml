@@ -2,7 +2,7 @@ name: Update emacs snapshots with flake
 
 on:
   schedule:
-    - cron: "15 10 * * 2"
+    - cron: "15 10 1 * *"
   workflow_dispatch:
 
 jobs:
