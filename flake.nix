@@ -41,5 +41,6 @@
         makeEmacsShell emacs-ci.packages.${system}.emacs-snapshot;
       devShells.emacs-release-snapshot =
         makeEmacsShell emacs-ci.packages.${system}.emacs-release-snapshot;
+      devShells.emacs-29-1 = makeEmacsShell emacs-ci.packages.${system}.emacs-29-1;
     });
 }
