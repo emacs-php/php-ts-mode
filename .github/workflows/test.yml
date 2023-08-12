@@ -12,7 +12,10 @@ jobs:
     timeout-minutes: 3
     strategy:
       matrix:
-        emacs_version: ['emacs-release-snapshot']
+        emacs_version:
+          - 'emacs-29-1'
+          - 'emacs-release-snapshot'
+          - 'emacs-snapshot'
     steps:
     - uses: cachix/install-nix-action@v21
       with:
