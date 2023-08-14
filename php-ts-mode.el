@@ -31,11 +31,13 @@
 ;;; Code:
 (eval-when-compile
   (require 'cc-mode)
-  (require 'cl-lib))
+  (require 'cl-lib)
+  (require 'rx))
 (require 'treesit)
 (require 'c-ts-common)
 (require 'php nil t)
 (require 'php-face nil t)
+(require 'consult-imenu nil t)
 
 (declare-function php-base-mode "ext:php")
 (declare-function treesit-parser-create "treesit.c")
@@ -339,14 +341,28 @@ Currently there are `php-mode' and `php-ts-mode'."
                 (function constant label)
                 (bracket delimiter operator variables)))
 
+  (defun php-ts-mode--imenu-node-name (node)
+    "Imenu node name."
+    (message "%s : %s" node (treesit-node-text node))
+    (pcase (treesit-node-type node)
+        ("namespace_use_declaration" (treesit-node-text
+                                      (treesit-node-child node 1)))
+        ("const_declaration" (treesit-node-text node t))
+        (_ (treesit-node-text node))))
+
   ;; Imenu.
   (setq-local treesit-simple-imenu-settings
-              '(("Namespace" "\\`namespace_definition\\'" nil nil)
-                ("Enum" "\\`enum_declaration\\'" nil nil)
-                ("Class" "\\`class_declaration\\'" nil nil)
-                ("Interface" "\\`interface_declaration\\'" nil nil)
-                ("Trait" "\\`trait_declaration\\'" nil nil)
-                ("Method" "\\`method_declaration\\'" nil nil)))
+              `(("Namespace" "\\`namespace_definition\\'" nil nil)
+                ("Classes" ,(rx bos (or "class_declaration"
+                                    "interface_declaration"
+                                    "enum_declaration"
+                                    "trait_declaration") eos)
+                 nil nil)
+                ("Methods" "\\`method_declaration\\'" nil php-ts-mode--imenu-node-name)
+                ("Functions" "\\`function_definition\\'" nil nil)
+                ("Constants" "\\`const_declaration\\'" nil php-ts-mode--imenu-node-name)
+                ("Imports" "\\`namespace_use_declaration\\'" nil php-ts-mode--imenu-node-name)
+                ("Properties" "\\`property_declaration\\'" nil php-ts-mode--imenu-node-name)))
 
   (treesit-major-mode-setup))
 
@@ -357,6 +373,17 @@ Currently there are `php-mode' and `php-ts-mode'."
 (with-eval-after-load 'treesit
   (add-to-list 'treesit-language-source-alist
                '(php "https://github.com/tree-sitter/tree-sitter-php" "master" "php/src")))
+
+;;;###autoload
+(with-eval-after-load 'consult-imenu
+  (add-to-list 'consult-imenu-config '(php-ts-mode :toplevel "Namespace"
+                                                   :types ((?n "Namespace" font-lock-function-name-face)
+                                                           (?p "Properties" font-lock-type-face)
+                                                           (?o "Constants" font-lock-type-face)
+                                                           (?c "Classes" font-lock-type-face)
+                                                           (?f "Functions" font-lock-function-name-face)
+                                                           (?i "Imports" font-lock-type-face)
+                                                           (?m "Methods"  font-lock-function-name-face)))))
 
 (provide 'php-ts-mode)
 ;;; php-ts-mode.el ends here
