@@ -1,3 +1,4 @@
 *.elc
 php-ts-mode-autoloads.el
-
+/.eask
+/dist
