@@ -29,7 +29,7 @@
       (add-to-list
        'treesit-language-source-alist
        '(php . ("https://github.com/tree-sitter/tree-sitter-php.git")))
-      (treesit-install-language-grammar 'php))))))
+      (treesit-install-language-grammar 'php)))
 
 
 (ert-deftest php-ts-mode-test-indentation ()
