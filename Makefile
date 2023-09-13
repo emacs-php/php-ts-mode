@@ -13,6 +13,6 @@ clean:
 	$(EASK) clean all
 
 test: clean all
-	$(EASK) test ert ./tests/php-ts-mode-tests
+	$(EASK) test ert ./tests/php-ts-mode-tests.el
 
 .PHONY: all autoloads clean test
