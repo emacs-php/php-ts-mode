@@ -34,7 +34,9 @@
   (require 'cl-lib))
 (require 'treesit)
 (require 'c-ts-common)
+(require 'php nil t)
 
+(declare-function php-base-mode "ext:php")
 (declare-function treesit-parser-create "treesit.c")
 (declare-function treesit-induce-sparse-tree "treesit.c")
 (declare-function treesit-node-child "treesit.c")
@@ -242,8 +244,17 @@ Return nil if there is no name or if NODE is not a defun node."
       (treesit-node-child-by-field-name node "name")
       t))))
 
+(unless (eval-when-compile (fboundp 'php-base-mode))
+  (define-derived-mode php-base-mode prog-mode "PHP base"
+    "Generic major mode for editing PHP script.
+
+This mode is intended to be inherited by concrete major modes.
+Currently there are `php-mode' and `php-ts-mode'."
+    :group 'php
+    nil))
+
 ;;;###autoload
-(define-derived-mode php-ts-mode prog-mode "PHP"
+(define-derived-mode php-ts-mode php-base-mode "PHP"
   "Major mode for editing PHP files, powered by tree-sitter."
   :group 'php
   :syntax-table php-ts-mode--syntax-table
