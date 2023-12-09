@@ -171,6 +171,7 @@ see https://www.php.net/manual/language.constants.predefined.php")
       name: (name) @font-lock-function-call-face)
      (member_call_expression
       name: (name) @font-lock-function-call-face)
+     (object_creation_expression (name) @font-lock-type-face)
      (function_definition
       name: (name) @font-lock-function-name-face))
 
