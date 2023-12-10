@@ -10,6 +10,8 @@ Point-Char: |
 Name: Basic
 
 =-=
+<?php
+
 class Basic {
     public function basic(): void {
         return;
@@ -20,9 +22,45 @@ class Basic {
 Name: Empty Line
 
 =-=
+<?php
+
 class EmptyLine {
     public function emptyLine(): void {
         |
     }
+}
+=-=-=
+Name: Function
+
+=-=
+<?php
+
+function basic(): void {
+    return;
+}
+=-=-=
+
+Name: Function with a PHPDoc
+
+=-=
+<?php
+
+/**
+ * Summary
+ */
+function with_phpdoc(): void {
+    return;
+}
+=-=-=
+
+Name: Namespace function
+
+=-=
+<?php
+
+namespace Ns;
+
+function ns_func(): void {
+    return;
 }
 =-=-=
