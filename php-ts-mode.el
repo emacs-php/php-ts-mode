@@ -316,6 +316,7 @@ Currently there are `php-mode' and `php-ts-mode'."
                 ("Enum" "\\`enum_declaration\\'" nil nil)
                 ("Class" "\\`class_declaration\\'" nil nil)
                 ("Interface" "\\`interface_declaration\\'" nil nil)
+                ("Trait" "\\`trait_declaration\\'" nil nil)
                 ("Method" "\\`method_declaration\\'" nil nil)))
 
   (treesit-major-mode-setup))
