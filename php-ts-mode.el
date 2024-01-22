@@ -73,7 +73,8 @@
        ((parent-is "program") column-0 0)
        ((parent-is "comment") parent-bol 1)
        ((parent-is "declaration_list") parent-bol ,offset)
-       ((parent-is "function_definition") parent-bol ,offset)
+       ;; "compound_statement" contains the body of many statements.
+       ;; For example function_definition, foreach_statement, etc.
        ((parent-is "compound_statement") parent-bol ,offset)
        ((parent-is "array_creation_expression") parent-bol ,offset)
        ((parent-is "base_clause") parent-bol ,offset)
@@ -85,8 +86,7 @@
        ((parent-is "switch_block") parent-bol ,offset)
        ((parent-is "case_statement") parent-bol ,offset)
        ((parent-is "assignment_expression") parent-bol ,offset)
-       ((parent-is "return_statement") parent-bol ,offset)
-       )))
+       ((parent-is "return_statement") parent-bol ,offset))))
   "Tree-sitter indent rules.")
 
 (defvar php-ts-mode--keywords

@@ -64,3 +64,30 @@ function ns_func(): void {
     return;
 }
 =-=-=
+
+Name: Function with an attribute
+
+=-=
+<?php
+
+namespace Ns;
+
+#[Attribute]
+function with_an_attr(): void {
+    return;
+}
+=-=-=
+
+Name: Function with two attributes
+
+=-=
+<?php
+
+namespace Ns;
+
+#[Attribute]
+#[Attribute]
+function with_two_attrs(): void {
+    return;
+}
+=-=-=
