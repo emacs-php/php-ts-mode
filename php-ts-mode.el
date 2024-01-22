@@ -232,15 +232,17 @@ see https://www.php.net/manual/language.constants.predefined.php")
    `((["(" ")" "[" "]" "{" "}"]) @font-lock-bracket-face))
   "Tree-sitter font-lock settings for `php-ts-mode'.")
 
-  (defun php-ts-mode--defun-name (node)
+(defun php-ts-mode--defun-name (node)
   "Return the defun name of NODE.
 Return nil if there is no name or if NODE is not a defun node."
   (pcase (treesit-node-type node)
     ((or "class_declaration"
          "enum_declaration"
+         "function_definition"
          "interface_declaration"
          "method_declaration"
-         "namespace_definition")
+         "namespace_definition"
+         "trait_declaration")
      (treesit-node-text
       (treesit-node-child-by-field-name node "name")
       t))))
