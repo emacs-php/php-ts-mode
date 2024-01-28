@@ -27,6 +27,19 @@ If you don't already have `php-ts-mode` installed, please evaluate the Lisp code
 
 Running `M-x treesit-install-language-grammar [RET] php` will compile and install the latest [tree-sitter-php][].
 
+## Settings
+
+### Syntax highlighting
+
+In `php-ts-mode`, syntax elements are classified as follows.
+
+ * **Level 1**: `comment` `definition` `preprocessor`
+ * **Level 2**: `keyword` `string` `type`
+ * **Level 3**: `function` `constant` `label`
+ * **Level 4**: `bracket` `delimiter` `operator` `variables`
+
+By default, up to **Level 3** will be highlighted.
+
 ## How to develop
 
  1. Chekout [tree-sitter-php][] to your computer.
