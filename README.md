@@ -2,13 +2,34 @@
 
 A Tree-sitter based major mode for editing PHP codes.
 
-> **Warning**
-> This package is still in early development and will not work.
-> It's just that the java-ts-mode keyword has been replaced with PHP.
+> [!NOTE]
+> This package is based on Emacs 29's built-in [`treesit`][treesit] and `c-ts-common` features.  
+> `php-ts-mode` has been tested with [v0.21.1][] of [tree-sitter-php][].
+
+[treesit]: https://www.gnu.org/software/emacs/manual/html_node/elisp/Language-Grammar.html
+[tree-sitter-php]: https://github.com/tree-sitter/tree-sitter-php
+[v0.21.1]: https://github.com/tree-sitter/tree-sitter-php/releases/tag/v0.21.1
+
+## How to install
+
+If you haven't installed Tree-sitter yet, please read [How to Get Started with Tree-Sitter - Mastering Emacs][].  At this point, Tree-sitter may be too early for those who cannot compile and install it themselves. You will end up recompiling it with every future update of [tree-sitter-php][].
+
+[How to Get Started with Tree-Sitter - Mastering Emacs]: https://www.masteringemacs.org/article/how-to-get-started-tree-sitter
+
+### Grammer installation
+
+If you don't already have `php-ts-mode` installed, please evaluate the Lisp code below.
+
+```elisp
+(add-to-list 'treesit-language-source-alist
+             '(php "https://github.com/tree-sitter/tree-sitter-php" "master" "php/src"))
+```
+
+Running `M-x treesit-install-language-grammar [RET] php` will compile and install the latest [tree-sitter-php][].
 
 ## How to develop
 
- 1. Chekout [tree-sitter-php](https://github.com/tree-sitter/tree-sitter-php) to your computer.
+ 1. Chekout [tree-sitter-php][] to your computer.
  2. Do `make install`
 
 ## Copyright
