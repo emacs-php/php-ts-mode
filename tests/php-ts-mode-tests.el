@@ -28,7 +28,7 @@
     (unless (treesit-language-available-p 'php)
       (add-to-list
        'treesit-language-source-alist
-       '(php . ("https://github.com/tree-sitter/tree-sitter-php.git")))
+       '(php . ("https://github.com/tree-sitter/tree-sitter-php.git" "master" "php/src")))
       (treesit-install-language-grammar 'php)))
 
 
