@@ -354,8 +354,9 @@ Currently there are `php-mode' and `php-ts-mode'."
   (add-to-list 'auto-mode-alist '("\\.php[s345]?\\'" . php-ts-mode)))
 
 ;;;###autoload
-(add-to-list 'treesit-language-source-alist
-             '(php "https://github.com/tree-sitter/tree-sitter-php" "master" "php/src"))
+(with-eval-after-load 'treesit
+  (add-to-list 'treesit-language-source-alist
+               '(php "https://github.com/tree-sitter/tree-sitter-php" "master" "php/src")))
 
 (provide 'php-ts-mode)
 ;;; php-ts-mode.el ends here
