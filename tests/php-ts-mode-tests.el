@@ -26,11 +26,7 @@
 
 (if (and (treesit-available-p) (boundp 'treesit-language-source-alist))
     (unless (treesit-language-available-p 'php)
-      (add-to-list
-       'treesit-language-source-alist
-       '(php . ("https://github.com/tree-sitter/tree-sitter-php.git" "master" "php/src")))
       (treesit-install-language-grammar 'php)))
-
 
 (ert-deftest php-ts-mode-test-indentation ()
   (skip-unless (treesit-ready-p 'php))
