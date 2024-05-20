@@ -18,7 +18,7 @@ jobs:
     - name: Update emacs snapshots
       run: nix flake update
     - name: Create Pull Request
-      uses: peter-evans/create-pull-request@v5
+      uses: peter-evans/create-pull-request@v6
       with:
         title: 'Emacs snapshots update'
         body: ''
