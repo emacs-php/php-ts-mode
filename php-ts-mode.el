@@ -331,6 +331,16 @@ Currently there are `php-mode' and `php-ts-mode'."
 
   (setq-local treesit-defun-name-function #'php-ts-mode--defun-name)
 
+  ;; Navigation
+  (setq-local treesit-defun-type-regexp
+              (regexp-opt '("class_declaration"
+                            "enum_declaration"
+                            "function_definition"
+                            "interface_declaration"
+                            "method_declaration"
+                            "namespace_definition"
+                            "trait_declaration")))
+
   ;; Font-lock.
   (setq-local treesit-font-lock-settings php-ts-mode--font-lock-settings)
   (setq-local treesit-font-lock-feature-list
