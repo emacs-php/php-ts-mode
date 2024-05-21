@@ -1,0 +1,51 @@
+Code:
+  (lambda ()
+    (php-ts-mode)
+    (customize-set-variable 'treesit-font-lock-level 4)
+    (setq mode-require-final-newline nil)
+    (let ((face (symbol-name (face-at-point t))))
+        (erase-buffer)
+        (insert face)))
+
+Name: Open php tag
+Point-Char: |
+No-After-Newline: t
+
+=-=
+<?p|hp
+=-=
+php-php-tag
+=-=-=
+
+Name: Keyword `class`
+No-After-Newline: t
+
+=-=
+<?php
+cla|ss Basic {}
+=-=
+php-keyword
+=-=-=
+
+Name: Keyword `public`
+No-After-Newline: t
+
+=-=
+<?php
+
+class Basic {
+    pub|lic function basic() {}
+}
+=-=
+php-keyword
+=-=-=
+
+Name: Class name
+No-After-Newline: t
+
+=-=
+<?php
+class Ba|sic {}
+=-=
+php-class
+=-=-=

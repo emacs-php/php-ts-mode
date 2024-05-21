@@ -35,7 +35,11 @@
 ; FIXME: implement basic movements
 (ert-deftest php-ts-mode-test-movement ()
  (skip-unless (treesit-ready-p 'php))
-(ert-test-erts-file (ert-resource-file "movement.erts")))
+ (ert-test-erts-file (ert-resource-file "movement.erts")))
+
+(ert-deftest php-ts-mode-test-face ()
+ (skip-unless (treesit-ready-p 'php))
+ (ert-test-erts-file (ert-resource-file "face.erts")))
 
 (provide 'php-ts-mode-tests)
 ;;; php-ts-mode-tests.el ends here
