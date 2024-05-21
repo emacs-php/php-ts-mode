@@ -1,4 +1,8 @@
 *.elc
 php-ts-mode-autoloads.el
+php-ts-mode-pkg.el
 /.eask
 /dist
+# emacs tmp files
+*~
+*#

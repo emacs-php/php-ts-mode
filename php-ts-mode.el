@@ -36,6 +36,7 @@
 (require 'c-ts-common)
 (require 'php nil t)
 (require 'php-face nil t)
+(require 'php-ts-face nil t)
 
 (declare-function php-base-mode "ext:php")
 (declare-function treesit-parser-create "treesit.c")
@@ -77,6 +78,7 @@
        ;; "compound_statement" contains the body of many statements.
        ;; For example function_definition, foreach_statement, etc.
        ((parent-is "compound_statement") parent-bol ,offset)
+       ((parent-is "method_declaration") parent-bol 0)
        ((parent-is "array_creation_expression") parent-bol ,offset)
        ((parent-is "base_clause") parent-bol ,offset)
        ((parent-is "class_interface_clause") parent-bol ,offset)
@@ -145,7 +147,8 @@ see https://www.php.net/manual/language.constants.predefined.php")
       (named_type (name) @php-type)
       (named_type (qualified_name) @php-type)
       (namespace_use_clause)
-      (namespace_name (name))]
+      (namespace_name (name))
+      (optional_type "?" @php-type)]
      @php-type
      (class_interface_clause (name) @php-class)
      (class_constant_access_expression
@@ -176,7 +179,8 @@ see https://www.php.net/manual/language.constants.predefined.php")
      (trait_declaration
       name: (name) @php-class)
      (enum_case
-      name: (name) @php-class))
+      name: (name) @php-class)
+     (base_clause (name) @php-class))
 
    :language 'php
    :feature 'function
@@ -207,14 +211,16 @@ see https://www.php.net/manual/language.constants.predefined.php")
 
      ;; ((name) @constructor
      ;;  (:match ,(rx-to-string '(: bos (in "A-Z")))))
-
-     ;; (variable_name (name) @php-$this
-     ;;  (:match ,(rx bos "this" eos)
-     ;;          @php-$this))
      (member_access_expression name: (name) @php-property-name)
      ;;(variable_name (name) @font-lock-variable-name-face)
      (variable_name (name) @php-variable-name)
      (variable_name "$" @php-variable-sigil))
+
+   :language 'php
+   :feature 'this
+   :override t
+   `((variable_name "$" @php-this-sigil (name) @php-this
+		    (:match ,(rx bos "this" eos) @php-this)))
 
    :language 'php
    :feature 'comment
@@ -226,7 +232,7 @@ see https://www.php.net/manual/language.constants.predefined.php")
    :language 'php
    :feature 'string
    `([(string)
-      (string_value)
+      (string_content)
       (encapsed_string)
       (heredoc)
       (heredoc_body)
@@ -347,7 +353,7 @@ Currently there are `php-mode' and `php-ts-mode'."
               '((comment definition preprocessor)
                 (keyword string type)
                 (function constant label)
-                (bracket delimiter operator variables)))
+                (bracket delimiter operator variables this)))
 
   ;; Imenu.
   (setq-local treesit-simple-imenu-settings
