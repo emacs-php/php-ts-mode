@@ -91,3 +91,17 @@ function with_two_attrs(): void {
     return;
 }
 =-=-=
+
+Name: Opening bracket on new line
+
+=-=
+<?php
+
+class Test
+{
+    public function test(): void
+    {
+        return;
+    }
+}
+=-=-=
