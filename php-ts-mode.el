@@ -88,6 +88,7 @@
        ((parent-is "binary_expression") parent-bol, 0)
        ((parent-is "switch_block") parent-bol ,offset)
        ((parent-is "case_statement") parent-bol ,offset)
+       ((parent-is "default_statement") parent-bol ,offset)
        ((parent-is "assignment_expression") parent-bol ,offset)
        ((parent-is "return_statement") parent-bol ,offset))))
   "Tree-sitter indent rules.")
@@ -161,6 +162,10 @@ see https://www.php.net/manual/language.constants.predefined.php")
               @php-constant))
      (class_constant_access_expression
       (name) @php-class)
+     (class_constant_access_expression
+      (qualified_name
+       (namespace_name_as_prefix) @php-class
+       (name) @php-class))
      [(boolean)
       (null)]
      @php-constant
@@ -180,7 +185,8 @@ see https://www.php.net/manual/language.constants.predefined.php")
       name: (name) @php-class)
      (enum_case
       name: (name) @php-class)
-     (base_clause (name) @php-class))
+     (base_clause (name) @php-class)
+     (use_declaration (name) @php-class))
 
    :language 'php
    :feature 'function
@@ -194,6 +200,8 @@ see https://www.php.net/manual/language.constants.predefined.php")
       scope: (name) @php-class)
      (scoped_call_expression
       name: (name) @php-static-method-call)
+     (scoped_property_access_expression
+      scope: (name) @php-class)
      (member_call_expression
       name: (name) @php-method-call)
      (object_creation_expression (name) @php-class)

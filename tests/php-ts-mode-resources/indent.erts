@@ -105,3 +105,19 @@ class Test
     }
 }
 =-=-=
+
+Name: Switch
+
+=-=
+<?php
+
+public function test()
+{
+    switch ($cond) {
+        case 1:
+	    return 1;
+	default:
+	    return 2;
+    }
+}
+=-=-=
