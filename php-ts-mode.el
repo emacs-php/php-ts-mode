@@ -209,6 +209,9 @@ see https://www.php.net/manual/language.constants.predefined.php")
      (member_call_expression
       name: (name) @php-method-call)
      (object_creation_expression (name) @php-class)
+     (object_creation_expression
+      (qualified_name (namespace_name_as_prefix) @php-class
+	 (name) @php-class))
      (attribute (name) @php-class)
      (attribute (qualified_name) @php-class)
 
