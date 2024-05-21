@@ -105,6 +105,10 @@
     "while" "yield")
   "PHP keywords for tree-sitter font-locking.")
 
+(defvar php-ts-mode--built-in-functions
+  '("die" "echo" "empty" "isset")
+  "PHP built-in functions for tree-sitter font-locking.")
+
 (defvar php-ts-mode--operators
   '("!=" "!==" "%" "%=" "&" "&&" "&=" "*" "**" "*="
      "+" "++" "+=" "," "-" "-" "--" "-=" "->" "."
@@ -260,6 +264,16 @@ see https://www.php.net/manual/language.constants.predefined.php")
      (yield_expression "from" @php-keyword))
 
    :language 'php
+   :feature 'built-in
+   :override t
+   `((function_call_expression
+      function: (name) @php-keyword
+      (:match ,(rx-to-string
+                `(seq bol
+                      (or ,@php-ts-mode--built-in-functions)
+                      eol)) @php-keyword)))
+
+   :language 'php
    :feature 'label
    `((goto_statement (name) @php-keyword)
      (named_label_statement (name) @php-keyword))
@@ -359,7 +373,7 @@ Currently there are `php-mode' and `php-ts-mode'."
   (setq-local treesit-font-lock-settings php-ts-mode--font-lock-settings)
   (setq-local treesit-font-lock-feature-list
               '((comment definition preprocessor)
-                (keyword string type)
+                (keyword string type built-in)
                 (function constant label)
                 (bracket delimiter operator variables this)))
 

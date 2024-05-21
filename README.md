@@ -53,7 +53,7 @@ Running `M-x treesit-install-language-grammar [RET] php` will compile and instal
 In `php-ts-mode`, syntax elements are classified as follows.
 
  * **Level 1**: `comment` `definition` `preprocessor`
- * **Level 2**: `keyword` `string` `type`
+ * **Level 2**: `keyword` `string` `type` `built-in`
  * **Level 3**: `function` `constant` `label`
  * **Level 4**: `bracket` `delimiter` `operator` `variables` `this`
 
