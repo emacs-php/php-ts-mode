@@ -49,3 +49,95 @@ class Ba|sic {}
 =-=
 php-class
 =-=-=
+
+Name: Class base clause
+No-After-Newline: t
+
+=-=
+<?php
+class Basic extends Par|ent{}
+=-=
+php-class
+=-=-=
+
+Name: This sigil
+No-After-Newline: t
+
+=-=
+<?php
+|$this
+=-=
+php-this-sigil
+=-=-=
+
+Name: This
+No-After-Newline: t
+
+=-=
+<?php
+$t|his
+=-=
+php-this
+=-=-=
+
+Name: Optional type
+No-After-Newline: t
+
+=-=
+<?php
+function test(|?int $arg) {}
+=-=
+php-type
+=-=-=
+
+Name: Scoped propery access
+No-After-Newline: t
+
+=-=
+<?php
+|Test::$test;
+=-=
+php-class
+=-=-=
+
+Name: Class constant access with qualified name
+No-After-Newline: t
+
+=-=
+<?php
+|\Test::TEST;
+=-=
+php-class
+=-=-=
+
+Name: Trait use declation
+No-After-Newline: t
+
+=-=
+<?php
+class Test {
+    use Te|st;
+}
+=-=
+php-class
+=-=-=
+
+Name: Built-in function
+No-After-Newline: t
+
+=-=
+<?php
+iss|et($t)
+=-=
+php-keyword
+=-=-=
+
+Name: Object create expression with qualified name
+No-After-Newline: t
+
+=-=
+<?php
+$t = new |\Test();
+=-=
+php-class
+=-=-=

@@ -2,6 +2,7 @@ Code:
   (lambda ()
     (setq indent-tabs-mode nil)
     (setq php-ts-mode-indent-offset 4)
+    (setq tab-width 4)
     (php-ts-mode)
     (indent-region (point-min) (point-max)))
 
@@ -100,24 +101,46 @@ Name: Opening bracket on new line
 class Test
 {
     public function test(): void
+{
+        return;
+    }
+}
+=-=
+<?php
+
+class Test
+{
+    public function test(): void
     {
         return;
     }
 }
 =-=-=
 
-Name: Switch
+Name: Switch default statement
 
 =-=
 <?php
 
-public function test()
+function test()
 {
     switch ($cond) {
         case 1:
-	    return 1;
-	default:
-	    return 2;
+            return 1;
+        default:
+        return 2;
+    }
+}
+=-=
+<?php
+
+function test()
+{
+    switch ($cond) {
+        case 1:
+            return 1;
+        default:
+            return 2;
     }
 }
 =-=-=
