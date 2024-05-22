@@ -50,12 +50,22 @@ class Ba|sic {}
 php-class
 =-=-=
 
-Name: Class base clause
+Name: Base clause
 No-After-Newline: t
 
 =-=
 <?php
 class Basic extends Par|ent{}
+=-=
+php-class
+=-=-=
+
+Name: Base clause with qualified name
+No-After-Newline: t
+
+=-=
+<?php
+class Test extends \test\T|est {}
 =-=
 php-class
 =-=-=
@@ -100,6 +110,16 @@ No-After-Newline: t
 php-class
 =-=-=
 
+Name: Scoped propery access with qualified name
+No-After-Newline: t
+
+=-=
+<?php
+\Te|st::$test;
+=-=
+php-class
+=-=-=
+
 Name: Class constant access with qualified name
 No-After-Newline: t
 
@@ -138,6 +158,38 @@ No-After-Newline: t
 =-=
 <?php
 $t = new |\Test();
+=-=
+php-class
+=-=-=
+
+Name: Scoped call expression with qualified name
+No-After-Newline: t
+
+=-=
+<?php
+\Te|st::test();
+=-=
+php-class
+=-=-=
+
+Name: Attribute name
+No-After-Newline: t
+
+=-=
+<?php
+#[At|tr]
+class Test {}
+=-=
+php-class
+=-=-=
+
+Name: Attribute qualified name
+No-After-Newline: t
+
+=-=
+<?php
+#[\At|tr]
+class Test {}
 =-=
 php-class
 =-=-=

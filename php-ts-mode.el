@@ -165,11 +165,7 @@ see https://www.php.net/manual/language.constants.predefined.php")
       (:match ,(rx bos (? "_") (in "A-Z") (+ (in "0-9A-Z_")) eos)
               @php-constant))
      (class_constant_access_expression
-      (name) @php-class)
-     (class_constant_access_expression
-      (qualified_name
-       (namespace_name_as_prefix) @php-class
-       (name) @php-class))
+      [(name) (qualified_name)] @php-class)
      [(boolean)
       (null)]
      @php-constant
@@ -179,6 +175,7 @@ see https://www.php.net/manual/language.constants.predefined.php")
 
    :language 'php
    :feature 'definition
+   :override t
    `((class_declaration
       name: (name) @php-class)
      (interface_declaration
@@ -189,11 +186,12 @@ see https://www.php.net/manual/language.constants.predefined.php")
       name: (name) @php-class)
      (enum_case
       name: (name) @php-class)
-     (base_clause (name) @php-class)
+     (base_clause [(name) (qualified_name)] @php-class)
      (use_declaration (name) @php-class))
 
    :language 'php
    :feature 'function
+   :override t
    `((array_creation_expression "array" @php-builtin)
      (list_literal "list" @php-builtin)
      (method_declaration
@@ -201,20 +199,14 @@ see https://www.php.net/manual/language.constants.predefined.php")
      (function_call_expression
       function: [(qualified_name (name)) (name)] @php-function-call)
      (scoped_call_expression
-      scope: (name) @php-class)
-     (scoped_call_expression
+      scope: [(name) (qualified_name)] @php-class
       name: (name) @php-static-method-call)
      (scoped_property_access_expression
-      scope: (name) @php-class)
+      scope: [(name) (qualified_name)] @php-class)
      (member_call_expression
       name: (name) @php-method-call)
-     (object_creation_expression (name) @php-class)
-     (object_creation_expression
-      (qualified_name (namespace_name_as_prefix) @php-class
-	 (name) @php-class))
-     (attribute (name) @php-class)
-     (attribute (qualified_name) @php-class)
-
+     (object_creation_expression [(name) (qualified_name)] @php-class)
+     (attribute [(name) (qualified_name)] @php-class)
      (function_definition
       name: (name) @php-function-name))
 
