@@ -89,6 +89,7 @@
        ((parent-is "switch_block") parent-bol ,offset)
        ((parent-is "case_statement") parent-bol ,offset)
        ((parent-is "default_statement") parent-bol ,offset)
+       ((parent-is "match_block") parent-bol ,offset)
        ((parent-is "assignment_expression") parent-bol ,offset)
        ((parent-is "return_statement") parent-bol ,offset))))
   "Tree-sitter indent rules.")
@@ -99,14 +100,14 @@
     "elseif" "enddeclare" "endforeach" "endif" "endswitch"
     "endwhile" "enum" "extends" "final" "finally" "for" "foreach"
     "fn" "function" "global" "if" "implements" "include_once"
-    "include" "insteadof" "interface" "namespace" "new"
+    "include" "insteadof" "interface" "match" "namespace" "new"
     "private" "protected" "public" "readonly" "require_once" "require"
     "return" "static" "switch" "throw" "trait" "try" "use"
     "while" "yield")
   "PHP keywords for tree-sitter font-locking.")
 
 (defvar php-ts-mode--built-in-functions
-  '("die" "echo" "empty" "isset")
+  '("die" "empty" "isset")
   "PHP built-in functions for tree-sitter font-locking.")
 
 (defvar php-ts-mode--operators
@@ -266,7 +267,8 @@ see https://www.php.net/manual/language.constants.predefined.php")
       (:match ,(rx-to-string
                 `(seq bol
                       (or ,@php-ts-mode--built-in-functions)
-                      eol)) @php-keyword)))
+                      eol)) @php-keyword))
+     (unset_statement "unset" @php-keyword))
 
    :language 'php
    :feature 'label

@@ -144,3 +144,17 @@ function test()
     }
 }
 =-=-=
+
+Name: Match statement
+
+=-=
+<?php
+match ($t) {
+1 => 1
+};
+=-=
+<?php
+match ($t) {
+    1 => 1
+};
+=-=-=
