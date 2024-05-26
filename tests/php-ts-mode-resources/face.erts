@@ -212,3 +212,13 @@ class Test {}
 =-=
 php-class
 =-=-=
+
+Name: Instanceof class
+No-After-Newline: t
+
+=-=
+<?php
+$a instanceof |B;
+=-=
+php-class
+=-=-=

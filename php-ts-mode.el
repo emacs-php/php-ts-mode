@@ -100,7 +100,7 @@
     "elseif" "enddeclare" "endforeach" "endif" "endswitch"
     "endwhile" "enum" "extends" "final" "finally" "for" "foreach"
     "fn" "function" "global" "if" "implements" "include_once"
-    "include" "insteadof" "interface" "match" "namespace" "new"
+    "include" "instanceof" "insteadof" "interface" "match" "namespace" "new"
     "private" "protected" "public" "readonly" "require_once" "require"
     "return" "static" "switch" "throw" "trait" "try" "use"
     "while" "yield")
@@ -172,7 +172,10 @@ see https://www.php.net/manual/language.constants.predefined.php")
      @php-constant
      [(integer)
       (float)]
-     @font-lock-number-face)
+     @font-lock-number-face
+     (binary_expression
+      operator: "instanceof"
+      right: [(name) (qualified_name)] @php-class))
 
    :language 'php
    :feature 'definition
