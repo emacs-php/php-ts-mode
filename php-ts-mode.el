@@ -256,15 +256,12 @@ see https://www.php.net/manual/language.constants.predefined.php")
 
    :language 'php
    :feature 'keyword
+   :override t
    `([,@php-ts-mode--keywords] @php-keyword
      (print_intrinsic "print" @php-keyword)
      (goto_statement "goto" @php-keyword)
-     (yield_expression "from" @php-keyword))
-
-   :language 'php
-   :feature 'built-in
-   :override t
-   `((function_call_expression
+     (yield_expression "from" @php-keyword)
+     (function_call_expression
       function: (name) @php-keyword
       (:match ,(rx-to-string
                 `(seq bol
@@ -372,7 +369,7 @@ Currently there are `php-mode' and `php-ts-mode'."
   (setq-local treesit-font-lock-settings php-ts-mode--font-lock-settings)
   (setq-local treesit-font-lock-feature-list
               '((comment definition preprocessor)
-                (keyword string type built-in)
+                (keyword string type)
                 (function constant label)
                 (bracket delimiter operator variables this)))
 
