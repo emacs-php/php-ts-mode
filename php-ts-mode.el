@@ -36,7 +36,6 @@
 (require 'c-ts-common)
 (require 'php nil t)
 (require 'php-face nil t)
-(require 'php-ts-face nil t)
 
 (declare-function php-base-mode "ext:php")
 (declare-function treesit-parser-create "treesit.c")
