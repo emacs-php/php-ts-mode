@@ -155,7 +155,7 @@ see https://www.php.net/manual/language.constants.predefined.php")
       (namespace_name (name))
       (optional_type "?" @php-type)]
      @php-type
-     (class_interface_clause (name) @php-class)
+     (class_interface_clause [(name) (qualified_name)] @php-class)
      (class_constant_access_expression
       (name) @php-keyword
       (:match ,(rx bos "class" eos)
@@ -190,7 +190,7 @@ see https://www.php.net/manual/language.constants.predefined.php")
      (enum_case
       name: (name) @php-class)
      (base_clause [(name) (qualified_name)] @php-class)
-     (use_declaration (name) @php-class))
+     (use_declaration [(name) (qualified_name)] @php-class))
 
    :language 'php
    :feature 'function
