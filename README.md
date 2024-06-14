@@ -16,6 +16,25 @@ If you haven't installed Tree-sitter yet, please read [How to Get Started with T
 
 [How to Get Started with Tree-Sitter - Mastering Emacs]: https://www.masteringemacs.org/article/how-to-get-started-tree-sitter
 
+Package can be installed by running the following command.
+
+```
+M-x package-vc-install [RET] https://github.com/emacs-php/php-ts-mode
+```
+
+### Configuration
+
+Example configuration that you can put in your `.emacs` file
+
+```
+;; Enable variables highlighting
+(customize-set-variable 'treesit-font-lock-level 4)
+
+(add-hook 'php-ts-mode-hook (lambda ()
+			      ;; Use spaces for indent
+			      (setq-local indent-tabs-mode nil)))
+```
+
 ### Grammer installation
 
 If you don't already have `php-ts-mode` installed, please evaluate the Lisp code below.
@@ -36,7 +55,7 @@ In `php-ts-mode`, syntax elements are classified as follows.
  * **Level 1**: `comment` `definition` `preprocessor`
  * **Level 2**: `keyword` `string` `type`
  * **Level 3**: `function` `constant` `label`
- * **Level 4**: `bracket` `delimiter` `operator` `variables`
+ * **Level 4**: `bracket` `delimiter` `operator` `variables` `this`
 
 By default, up to **Level 3** will be highlighted.
 

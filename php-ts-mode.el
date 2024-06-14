@@ -77,6 +77,7 @@
        ;; "compound_statement" contains the body of many statements.
        ;; For example function_definition, foreach_statement, etc.
        ((parent-is "compound_statement") parent-bol ,offset)
+       ((parent-is "method_declaration") parent-bol 0)
        ((parent-is "array_creation_expression") parent-bol ,offset)
        ((parent-is "base_clause") parent-bol ,offset)
        ((parent-is "class_interface_clause") parent-bol ,offset)
@@ -86,6 +87,8 @@
        ((parent-is "binary_expression") parent-bol, 0)
        ((parent-is "switch_block") parent-bol ,offset)
        ((parent-is "case_statement") parent-bol ,offset)
+       ((parent-is "default_statement") parent-bol ,offset)
+       ((parent-is "match_block") parent-bol ,offset)
        ((parent-is "assignment_expression") parent-bol ,offset)
        ((parent-is "return_statement") parent-bol ,offset))))
   "Tree-sitter indent rules.")
@@ -96,11 +99,15 @@
     "elseif" "enddeclare" "endforeach" "endif" "endswitch"
     "endwhile" "enum" "extends" "final" "finally" "for" "foreach"
     "fn" "function" "global" "if" "implements" "include_once"
-    "include" "insteadof" "interface" "namespace" "new"
+    "include" "instanceof" "insteadof" "interface" "match" "namespace" "new"
     "private" "protected" "public" "readonly" "require_once" "require"
     "return" "static" "switch" "throw" "trait" "try" "use"
     "while" "yield")
   "PHP keywords for tree-sitter font-locking.")
+
+(defvar php-ts-mode--built-in-functions
+  '("die" "empty" "isset")
+  "PHP built-in functions for tree-sitter font-locking.")
 
 (defvar php-ts-mode--operators
   '("!=" "!==" "%" "%=" "&" "&&" "&=" "*" "**" "*="
@@ -145,9 +152,10 @@ see https://www.php.net/manual/language.constants.predefined.php")
       (named_type (name) @php-type)
       (named_type (qualified_name) @php-type)
       (namespace_use_clause)
-      (namespace_name (name))]
+      (namespace_name (name))
+      (optional_type "?" @php-type)]
      @php-type
-     (class_interface_clause (name) @php-class)
+     (class_interface_clause [(name) (qualified_name)] @php-class)
      (class_constant_access_expression
       (name) @php-keyword
       (:match ,(rx bos "class" eos)
@@ -157,16 +165,20 @@ see https://www.php.net/manual/language.constants.predefined.php")
       (:match ,(rx bos (? "_") (in "A-Z") (+ (in "0-9A-Z_")) eos)
               @php-constant))
      (class_constant_access_expression
-      (name) @php-class)
+      [(name) (qualified_name)] @php-class)
      [(boolean)
       (null)]
      @php-constant
      [(integer)
       (float)]
-     @font-lock-number-face)
+     @font-lock-number-face
+     (binary_expression
+      operator: "instanceof"
+      right: [(name) (qualified_name)] @php-class))
 
    :language 'php
    :feature 'definition
+   :override t
    `((class_declaration
       name: (name) @php-class)
      (interface_declaration
@@ -176,10 +188,13 @@ see https://www.php.net/manual/language.constants.predefined.php")
      (trait_declaration
       name: (name) @php-class)
      (enum_case
-      name: (name) @php-class))
+      name: (name) @php-class)
+     (base_clause [(name) (qualified_name)] @php-class)
+     (use_declaration [(name) (qualified_name)] @php-class))
 
    :language 'php
    :feature 'function
+   :override t
    `((array_creation_expression "array" @php-builtin)
      (list_literal "list" @php-builtin)
      (method_declaration
@@ -187,15 +202,14 @@ see https://www.php.net/manual/language.constants.predefined.php")
      (function_call_expression
       function: [(qualified_name (name)) (name)] @php-function-call)
      (scoped_call_expression
-      scope: (name) @php-class)
-     (scoped_call_expression
+      scope: [(name) (qualified_name)] @php-class
       name: (name) @php-static-method-call)
+     (scoped_property_access_expression
+      scope: [(name) (qualified_name)] @php-class)
      (member_call_expression
       name: (name) @php-method-call)
-     (object_creation_expression (name) @php-class)
-     (attribute (name) @php-class)
-     (attribute (qualified_name) @php-class)
-
+     (object_creation_expression [(name) (qualified_name)] @php-class)
+     (attribute [(name) (qualified_name)] @php-class)
      (function_definition
       name: (name) @php-function-name))
 
@@ -207,14 +221,16 @@ see https://www.php.net/manual/language.constants.predefined.php")
 
      ;; ((name) @constructor
      ;;  (:match ,(rx-to-string '(: bos (in "A-Z")))))
-
-     ;; (variable_name (name) @php-$this
-     ;;  (:match ,(rx bos "this" eos)
-     ;;          @php-$this))
      (member_access_expression name: (name) @php-property-name)
      ;;(variable_name (name) @font-lock-variable-name-face)
      (variable_name (name) @php-variable-name)
      (variable_name "$" @php-variable-sigil))
+
+   :language 'php
+   :feature 'this
+   :override t
+   `((variable_name "$" @php-this-sigil (name) @php-this
+		    (:match ,(rx bos "this" eos) @php-this)))
 
    :language 'php
    :feature 'comment
@@ -226,7 +242,7 @@ see https://www.php.net/manual/language.constants.predefined.php")
    :language 'php
    :feature 'string
    `([(string)
-      (string_value)
+      (string_content)
       (encapsed_string)
       (heredoc)
       (heredoc_body)
@@ -240,10 +256,18 @@ see https://www.php.net/manual/language.constants.predefined.php")
 
    :language 'php
    :feature 'keyword
+   :override t
    `([,@php-ts-mode--keywords] @php-keyword
      (print_intrinsic "print" @php-keyword)
      (goto_statement "goto" @php-keyword)
-     (yield_expression "from" @php-keyword))
+     (yield_expression "from" @php-keyword)
+     (function_call_expression
+      function: (name) @php-keyword
+      (:match ,(rx-to-string
+                `(seq bol
+                      (or ,@php-ts-mode--built-in-functions)
+                      eol)) @php-keyword))
+     (unset_statement "unset" @php-keyword))
 
    :language 'php
    :feature 'label
@@ -347,7 +371,7 @@ Currently there are `php-mode' and `php-ts-mode'."
               '((comment definition preprocessor)
                 (keyword string type)
                 (function constant label)
-                (bracket delimiter operator variables)))
+                (bracket delimiter operator variables this)))
 
   ;; Imenu.
   (setq-local treesit-simple-imenu-settings

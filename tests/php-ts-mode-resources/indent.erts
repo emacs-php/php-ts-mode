@@ -2,6 +2,7 @@ Code:
   (lambda ()
     (setq indent-tabs-mode nil)
     (setq php-ts-mode-indent-offset 4)
+    (setq tab-width 4)
     (php-ts-mode)
     (indent-region (point-min) (point-max)))
 
@@ -90,4 +91,70 @@ namespace Ns;
 function with_two_attrs(): void {
     return;
 }
+=-=-=
+
+Name: Opening bracket on new line
+
+=-=
+<?php
+
+class Test
+{
+    public function test(): void
+{
+        return;
+    }
+}
+=-=
+<?php
+
+class Test
+{
+    public function test(): void
+    {
+        return;
+    }
+}
+=-=-=
+
+Name: Switch default statement
+
+=-=
+<?php
+
+function test()
+{
+    switch ($cond) {
+        case 1:
+            return 1;
+        default:
+        return 2;
+    }
+}
+=-=
+<?php
+
+function test()
+{
+    switch ($cond) {
+        case 1:
+            return 1;
+        default:
+            return 2;
+    }
+}
+=-=-=
+
+Name: Match statement
+
+=-=
+<?php
+match ($t) {
+1 => 1
+};
+=-=
+<?php
+match ($t) {
+    1 => 1
+};
 =-=-=

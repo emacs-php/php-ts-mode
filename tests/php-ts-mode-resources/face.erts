@@ -1,0 +1,224 @@
+Code:
+  (lambda ()
+    (php-ts-mode)
+    (customize-set-variable 'treesit-font-lock-level 4)
+    (let ((face (symbol-name (face-at-point))))
+        (erase-buffer)
+        (insert face)))
+
+Name: Open php tag
+Point-Char: |
+No-After-Newline: t
+
+=-=
+<?p|hp
+=-=
+php-php-tag
+=-=-=
+
+Name: Keyword `class`
+No-After-Newline: t
+
+=-=
+<?php
+cla|ss Basic {}
+=-=
+php-keyword
+=-=-=
+
+Name: Keyword `public`
+No-After-Newline: t
+
+=-=
+<?php
+
+class Basic {
+    pub|lic function basic() {}
+}
+=-=
+php-keyword
+=-=-=
+
+Name: Keyword `match`
+No-After-Newline: t
+
+=-=
+<?php
+|match ($t){}
+=-=
+php-keyword
+=-=-=
+
+Name: Class name
+No-After-Newline: t
+
+=-=
+<?php
+class Ba|sic {}
+=-=
+php-class
+=-=-=
+
+Name: Base clause
+No-After-Newline: t
+
+=-=
+<?php
+class Basic extends Par|ent{}
+=-=
+php-class
+=-=-=
+
+Name: Base clause with qualified name
+No-After-Newline: t
+
+=-=
+<?php
+class Test extends \test\T|est {}
+=-=
+php-class
+=-=-=
+
+Name: This sigil
+No-After-Newline: t
+
+=-=
+<?php
+|$this
+=-=
+php-this-sigil
+=-=-=
+
+Name: This
+No-After-Newline: t
+
+=-=
+<?php
+$t|his
+=-=
+php-this
+=-=-=
+
+Name: Optional type
+No-After-Newline: t
+
+=-=
+<?php
+function test(|?int $arg) {}
+=-=
+php-type
+=-=-=
+
+Name: Scoped propery access
+No-After-Newline: t
+
+=-=
+<?php
+|Test::$test;
+=-=
+php-class
+=-=-=
+
+Name: Scoped propery access with qualified name
+No-After-Newline: t
+
+=-=
+<?php
+\Te|st::$test;
+=-=
+php-class
+=-=-=
+
+Name: Class constant access with qualified name
+No-After-Newline: t
+
+=-=
+<?php
+|\Test::TEST;
+=-=
+php-class
+=-=-=
+
+Name: Trait use declation
+No-After-Newline: t
+
+=-=
+<?php
+class Test {
+    use Te|st;
+}
+=-=
+php-class
+=-=-=
+
+Name: Built-in function
+No-After-Newline: t
+
+=-=
+<?php
+iss|et($t)
+=-=
+php-keyword
+=-=-=
+
+Name: Unset statement
+No-After-Newline: t
+
+=-=
+<?php
+uns|et($t)
+=-=
+php-keyword
+=-=-=
+
+Name: Object create expression with qualified name
+No-After-Newline: t
+
+=-=
+<?php
+$t = new |\Test();
+=-=
+php-class
+=-=-=
+
+Name: Scoped call expression with qualified name
+No-After-Newline: t
+
+=-=
+<?php
+\Te|st::test();
+=-=
+php-class
+=-=-=
+
+Name: Attribute name
+No-After-Newline: t
+
+=-=
+<?php
+#[At|tr]
+class Test {}
+=-=
+php-class
+=-=-=
+
+Name: Attribute qualified name
+No-After-Newline: t
+
+=-=
+<?php
+#[\At|tr]
+class Test {}
+=-=
+php-class
+=-=-=
+
+Name: Instanceof class
+No-After-Newline: t
+
+=-=
+<?php
+$a instanceof |B;
+=-=
+php-class
+=-=-=
