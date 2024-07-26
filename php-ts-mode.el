@@ -84,7 +84,7 @@
        ((parent-is "formal_parameters") parent-bol ,offset)
        ((parent-is "arguments") parent-bol ,offset)
        ((parent-is "parenthesized_expression") parent-bol ,offset)
-       ((parent-is "binary_expression") parent-bol, 0)
+       ((parent-is "binary_expression") parent 0)
        ((parent-is "switch_block") parent-bol ,offset)
        ((parent-is "case_statement") parent-bol ,offset)
        ((parent-is "default_statement") parent-bol ,offset)
