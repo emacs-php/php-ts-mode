@@ -1,3 +1,5 @@
+;; -*- mode: eask; lexical-binding: t -*-
+
 (package "php-ts-mode"
          "0.0.1"
          "Tree-sitter support for PHP")
